@@ -28,3 +28,19 @@ class Place(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Image(models.Model):
+    image = models.ImageField('Изображение')
+    index_number = models.IntegerField('Порядковый номер')
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.SET_NULL,
+        verbose_name='К какому месту относится изображение',
+        related_name='images',
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return f'{self.index_number} {self.place.title}'
