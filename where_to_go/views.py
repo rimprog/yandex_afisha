@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.urls import reverse
 
 from places.models import Place
 
@@ -17,7 +18,7 @@ def create_geo_json(places):
             "properties": {
             "title": place.title,
             "placeId": place.place_id,
-            "detailsUrl": "https://raw.githubusercontent.com/devmanorg/where-to-go-frontend/master/places/moscow_legends.json" if place.place_id=='moscow_legends' else "https://raw.githubusercontent.com/devmanorg/where-to-go-frontend/master/places/roofs24.json"
+            "detailsUrl":  reverse('place_details', kwargs={'place_id': place.id})
             }
         }
 
