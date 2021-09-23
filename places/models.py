@@ -32,7 +32,7 @@ class Place(models.Model):
 
 class Image(models.Model):
     image = models.ImageField('Изображение')
-    index_number = models.IntegerField('Порядковый номер')
+    index_number = models.IntegerField('Порядковый номер', default=0)
     place = models.ForeignKey(
         Place,
         on_delete=models.SET_NULL,
@@ -44,3 +44,6 @@ class Image(models.Model):
 
     def __str__(self):
         return f'{self.index_number} {self.place.title}'
+
+    class Meta(object):
+        ordering = ['index_number']

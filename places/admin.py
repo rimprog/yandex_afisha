@@ -1,12 +1,16 @@
 from django.contrib import admin
-from places.models import Place, PlaceDetails, Image
 from django.utils.html import format_html
 
+from places.models import Place, PlaceDetails, Image
 
-class ImageInline(admin.TabularInline):
+from adminsortable2.admin import SortableInlineAdminMixin
+
+
+class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     readonly_fields = ['get_preview']
     fields = ['image', 'get_preview', 'index_number']
+    extra = 0
 
     def get_preview(self, instance):
         image_preview_html = format_html(
