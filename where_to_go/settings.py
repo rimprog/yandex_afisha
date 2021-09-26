@@ -140,15 +140,14 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# HTTPS deployment settings
-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-
 # Protection against vulnerabilities through an insecure connection
+# HTTPS deployment settings
 
 if env.bool("ONLY_HTTPS_REQUESTS", default=False):
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     SECURE_SSL_REDIRECT = True
+
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
