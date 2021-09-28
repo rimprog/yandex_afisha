@@ -12,9 +12,12 @@ class PlaceDetails(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        unique_together = ['latitude', 'longitude']
+
 
 class Place(models.Model):
-    place_id = models.CharField('ID места', max_length=200)
+    place_id = models.CharField('ID места', max_length=200, unique=True)
     title = models.CharField('Сокращенное название места', max_length=200)
     latitude = models.FloatField('Широта')
     longitude = models.FloatField('Долгота')

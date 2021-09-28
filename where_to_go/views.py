@@ -12,13 +12,13 @@ def create_geo_json(places):
         geo_json_point = {
             "type": "Feature",
             "geometry": {
-            "type": "Point",
-            "coordinates": [place.longitude, place.latitude]
+                "type": "Point",
+                "coordinates": [place.longitude, place.latitude]
             },
             "properties": {
-            "title": place.title,
-            "placeId": place.place_id,
-            "detailsUrl":  reverse('place_details', kwargs={'place_id': place.id})
+                "title": place.title,
+                "placeId": place.place_id,
+                "detailsUrl":  reverse('place_details', kwargs={'place_id': place.id})
             }
         }
 
