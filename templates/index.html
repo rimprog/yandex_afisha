@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <title>Куда пойти — Москва глазами Артёма</title>
 
-  <link rel="shortcut icon" href="favicon.png" type="image/png">
+  <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/png">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -39,7 +39,7 @@
       width: 100px;
     }
   </style>
-  
+
   {{ geo_json|json_script:'places-geojson' }}
 
   <script id="app-template" type="text/template">
