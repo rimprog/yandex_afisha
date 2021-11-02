@@ -60,7 +60,6 @@ Quit the server with CONTROL-C.
 - `DEBUG` — дебаг-режим. Поставьте `True`, чтобы увидеть отладочную информацию в случае ошибки.
 - `SECRET_KEY` — секретный ключ проекта
 - `ALLOWED_HOSTS` — см [документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts)
-- `ONLY_HTTPS_REQUESTS` — перевод сайта в полную готовность к деплою на сервер. Устраняет все ошибки выдаваемые командой `python3 manage.py check --deploy`. По умолчанию стоит `False`. Используйте `True`, только при развертывании на production сервере с настроенным SSL сертификатом.
 
 ## Наполнение сайта
 
