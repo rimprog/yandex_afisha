@@ -2,8 +2,8 @@ from django.db import models
 from tinymce.models import HTMLField
 
 
-class PlaceDetails(models.Model):
-    title = models.CharField('Полное название места', max_length=200)
+class Place(models.Model):
+    title = models.CharField('Название места', max_length=200, blank=True)
     description_short = models.TextField('Короткое описание', blank=True)
     description_long = HTMLField('Длинное описание', blank=True)
     latitude = models.FloatField('Широта')
@@ -14,24 +14,6 @@ class PlaceDetails(models.Model):
 
     class Meta:
         unique_together = ['latitude', 'longitude']
-
-
-class Place(models.Model):
-    place_id = models.CharField('ID места', max_length=200, unique=True)
-    title = models.CharField('Сокращенное название места', max_length=200, blank=True)
-    latitude = models.FloatField('Широта')
-    longitude = models.FloatField('Долгота')
-    place_details = models.OneToOneField(
-        PlaceDetails,
-        on_delete=models.SET_NULL,
-        verbose_name='Сведения о месте',
-        related_name='place',
-        null=True,
-        blank=True
-    )
-
-    def __str__(self):
-        return self.title
 
 
 class Image(models.Model):

@@ -28,7 +28,7 @@ class Command(BaseCommand):
                 'description_long': place_json['description_long'],
             }
         )
-        self.stdout.write(self.style.SUCCESS(f'Successfully {"created" if is_place_details_created else "get"} PlaceDeatails object "{place_details.title}"'))
+        self.stdout.write(self.style.SUCCESS(f'Successfully {"created" if is_place_details_created else "get"} PlaceDetails object "{place_details.title}"'))
 
         place, is_place_created = Place.objects.get_or_create(
             place_id = str(place_details.latitude) + str(place_details.longitude),

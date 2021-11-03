@@ -17,7 +17,7 @@ def create_geo_json(places):
             },
             "properties": {
                 "title": place.title,
-                "placeId": place.place_id,
+                "placeId": place.id,
                 "detailsUrl":  reverse('place_details', kwargs={'place_id': place.id})
             }
         }
@@ -42,13 +42,13 @@ def show_index_page(request):
 def get_place_details(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     place_details = {
-        "title": place.place_details.title,
+        "title": place.title,
         "imgs": [place_image.image.url for place_image in place.images.all()],
-        "description_short": place.place_details.description_short,
-        "description_long": place.place_details.description_long,
+        "description_short": place.description_short,
+        "description_long": place.description_long,
         "coordinates": {
-            "lng": place.place_details.longitude,
-            "lat": place.place_details.latitude
+            "lng": place.longitude,
+            "lat": place.latitude
         }
     }
 
