@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
-from places.models import Place, PlaceDetails, Image
+from places.models import Place, Image
 
 import requests
 
@@ -19,25 +19,15 @@ class Command(BaseCommand):
 
         place_json = response.json()
 
-        place_details, is_place_details_created = PlaceDetails.objects.get_or_create(
+        place, is_place_created = Place.objects.get_or_create(
+            title = place_json['title'],
             latitude = place_json['coordinates']['lat'],
             longitude = place_json['coordinates']['lng'],
             defaults = {
-                'title': place_json['title'],
                 'description_short': place_json['description_short'],
                 'description_long': place_json['description_long'],
             }
-        )
-        self.stdout.write(self.style.SUCCESS(f'Successfully {"created" if is_place_details_created else "get"} PlaceDetails object "{place_details.title}"'))
 
-        place, is_place_created = Place.objects.get_or_create(
-            place_id = str(place_details.latitude) + str(place_details.longitude),
-            defaults = {
-                'title': place_details.title,
-                'latitude': place_details.latitude,
-                'longitude': place_details.longitude,
-                'place_details': place_details
-            }
         )
         self.stdout.write(self.style.SUCCESS(f'Successfully {"created" if is_place_created else "get"} Place object "{place.title}"'))
 
