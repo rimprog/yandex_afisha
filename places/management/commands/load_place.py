@@ -28,9 +28,10 @@ class Command(BaseCommand):
                 'description_short': payload['description_short'],
                 'description_long': payload['description_long'],
             }
-
         )
-        self.stdout.write(self.style.SUCCESS(f'Successfully {"created" if is_place_created else "get"} Place object "{place.title}"'))
+        place_status = "created" if is_place_created else "get"
+        place_message = f'Successfully {place_status} Place object "{place.title}"'
+        self.stdout.write(self.style.SUCCESS(place_message))
 
         for image_index, image_url in enumerate(payload['imgs'], 1):
             response = requests.get(image_url)
@@ -45,4 +46,5 @@ class Command(BaseCommand):
             )
             if is_image_created:
                 image.image.save(image_name, ContentFile(image_binary), save=True)
-                self.stdout.write(self.style.SUCCESS(f'Successfully {"created" if is_image_created else "get"} Image object "{image}"'))
+                image_message = f'Successfully created Image object "{image}"'
+                self.stdout.write(self.style.SUCCESS(image_message))
