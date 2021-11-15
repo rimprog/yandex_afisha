@@ -1,3 +1,6 @@
+import os
+from urllib.parse import urlparse, unquote
+
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from places.models import Place, Image
@@ -38,7 +41,8 @@ class Command(BaseCommand):
             response.raise_for_status()
 
             image_binary = response.content
-            image_name = image_url.split('/')[-1]
+            image_path = unquote(urlparse(image_url).path)
+            image_name = os.path.split(image_path)[-1]
 
             image, is_image_created = Image.objects.get_or_create(
                 index_number = image_index,
