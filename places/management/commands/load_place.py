@@ -6,7 +6,8 @@ import requests
 
 
 class Command(BaseCommand):
-    help = 'Loads places to database from URL contains json. URL Example: https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/places/%D0%90%D0%BD%D1%82%D0%B8%D0%BA%D0%B0%D1%84%D0%B5%20Bizone.json'
+    help = 'Loads places to database from URL contains json. \
+    URL Example: https://bit.ly/3qzRT1b'
 
     def add_arguments(self, parser):
         parser.add_argument('place_url', type=str)
