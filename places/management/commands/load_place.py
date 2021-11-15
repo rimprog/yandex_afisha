@@ -18,21 +18,21 @@ class Command(BaseCommand):
         response = requests.get(url)
         response.raise_for_status()
 
-        place_json = response.json()
+        payload = response.json()
 
         place, is_place_created = Place.objects.get_or_create(
-            title = place_json['title'],
-            latitude = place_json['coordinates']['lat'],
-            longitude = place_json['coordinates']['lng'],
+            title = payload['title'],
+            latitude = payload['coordinates']['lat'],
+            longitude = payload['coordinates']['lng'],
             defaults = {
-                'description_short': place_json['description_short'],
-                'description_long': place_json['description_long'],
+                'description_short': payload['description_short'],
+                'description_long': payload['description_long'],
             }
 
         )
         self.stdout.write(self.style.SUCCESS(f'Successfully {"created" if is_place_created else "get"} Place object "{place.title}"'))
 
-        for image_index, image_url in enumerate(place_json['imgs'], 1):
+        for image_index, image_url in enumerate(payload['imgs'], 1):
             response = requests.get(image_url)
             response.raise_for_status()
 
