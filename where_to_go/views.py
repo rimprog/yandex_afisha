@@ -5,24 +5,36 @@ from django.urls import reverse
 from places.models import Place
 
 
-def create_geo_json(places):
+def create_geo_json_point(place):
+    geo_json_point = {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [place.longitude, place.latitude]
+        },
+        "properties": {
+            "title": place.title,
+            "placeId": place.id,
+            "detailsUrl":  reverse('place_details', kwargs={'place_id': place.id})
+        }
+    }
+
+    return geo_json_point
+
+
+def create_geo_json_points(places):
     geo_json_points = []
 
     for place in places:
-        geo_json_point = {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [place.longitude, place.latitude]
-            },
-            "properties": {
-                "title": place.title,
-                "placeId": place.id,
-                "detailsUrl":  reverse('place_details', kwargs={'place_id': place.id})
-            }
-        }
+        geo_json_point = create_geo_json_point(place)
 
         geo_json_points.append(geo_json_point)
+
+    return geo_json_points
+
+
+def create_geo_json(places):
+    geo_json_points = create_geo_json_points(places)
 
     geo_json = {
         "type": "FeatureCollection",
