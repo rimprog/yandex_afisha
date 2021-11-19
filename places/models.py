@@ -24,7 +24,6 @@ class Image(models.Model):
         on_delete=models.CASCADE,
         verbose_name='К какому месту относится изображение',
         related_name='images',
-        null=True,
     )
 
     def __str__(self):
